@@ -11,12 +11,14 @@ WORKDIR /app
 COPY package.json package-lock.json ./
 
 # Vulnerability: Installing dependencies without verification
-RUN npm install --legacy-peer-deps  # Skipping dependency integrity checks
+# Skipping dependency integrity checks
+RUN npm install --legacy-peer-deps  
 
 COPY . .
 
 # Vulnerability: Running build command without error handling
-RUN npm run build || true  # Ignores build failures
+# Ignores build failures
+RUN npm run build || true  
 
 # Nginx stage
 FROM nginx:alpine
