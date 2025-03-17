@@ -59,5 +59,4 @@ jobs:
             echo "Starting new frontend container..."
             sudo docker-compose up -d --force-recreate frontend
             echo "Deployment complete!"
-          '
- 
+          '
