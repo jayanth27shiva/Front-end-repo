@@ -46,15 +46,8 @@
 # Use a Node.js image
 FROM node:18-alpine
 
-# Install necessary packages to manage users
+# Install necessary packages (if you need to add any user management tools)
 RUN apk add --no-cache shadow
-
-# Create and set the root user
-RUN adduser -D root && \
-    echo "root:root" | chpasswd
-
-# Set user to root for the following steps
-USER root
 
 # Set the working directory inside the container
 WORKDIR /app
@@ -73,4 +66,5 @@ EXPOSE 3000
 
 # Run the application
 CMD ["npm", "start"]
+
 
