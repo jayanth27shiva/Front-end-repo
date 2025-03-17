@@ -28,13 +28,14 @@ jobs:
         uses: docker/build-push-action@v5
         with:
           context: ./
-          platforms: linux/amd64,linux/arm64
+          #platforms: linux/amd64  # Remove linux/arm64 for debugging
           push: true
           build-args: |
             REACT_APP_API_URL=${{ env.REACT_APP_API_URL }}
           tags: |
             ${{ env.DOCKER_IMAGE }}:latest
             ${{ env.DOCKER_IMAGE }}:${{ github.sha }}
+      
 
   deploy:
     needs: build-and-push
