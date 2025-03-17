@@ -43,22 +43,34 @@
 # EXPOSE 80 443 8080 8443
 
 
+# Use a Node.js image
 FROM node:18-alpine
+
+# Install necessary packages to manage users
+RUN apk add --no-cache shadow
 
 # Create and set the root user
 RUN adduser -D root && \
     echo "root:root" | chpasswd
 
-# Set the user to root
+# Set user to root for the following steps
 USER root
 
+# Set the working directory inside the container
 WORKDIR /app
 
-# Install dependencies
+# Copy package.json and package-lock.json
 COPY package.json package-lock.json ./
+
+# Install dependencies
 RUN npm install --legacy-peer-deps
 
+# Copy the rest of the application files
 COPY . .
 
+# Expose the port the app will run on
+EXPOSE 3000
+
+# Run the application
 CMD ["npm", "start"]
 
