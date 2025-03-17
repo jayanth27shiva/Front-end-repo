@@ -60,3 +60,4 @@ jobs:
             sudo docker-compose up -d --force-recreate frontend
             echo "Deployment complete!"
           '
+ 
