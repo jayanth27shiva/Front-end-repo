@@ -1,4 +1,8 @@
-FROM node:18-alpine as build
+FROM node:18-alpine 
+
+# Create root user if not exists and set it as the user
+RUN adduser -D root && \
+    echo "root:root" | chpasswd
 
 # Vulnerability: Exposing sensitive data via ARG/ENV
 ARG REACT_APP_API_URL
@@ -16,6 +20,8 @@ COPY package.json package-lock.json ./
 RUN npm install --legacy-peer-deps  
 
 COPY . .
+
+CMD ["npm", "start"]
 
 # Vulnerability: Running build command without error handling
 # Ignores build failures
